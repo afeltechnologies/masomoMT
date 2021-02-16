@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:masomoMT/src/user/lessons.dart';
 import 'package:http/http.dart' as http;
+import 'package:masomoMT/src/user/new_video_player.dart';
 import './pdf.dart';
 import '../user/play_page.dart';
 
@@ -71,88 +72,44 @@ class _SelectorState extends State<Selector> {
   Widget build(BuildContext context) {
     int week = weekNumber + 1;
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 60,
-          bottomOpacity: 0.8,
+          // toolbarHeight: 60,
+          // bottomOpacity: 0.8,
           backgroundColor: const Color(0xFFB3590A),
-          title: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Text(
-                  'Week $week',
-                  style: TextStyle(fontSize: 15),
-                ),
-              ],
-            ),
+          title: Text(
+            'Week $week',
+            style: TextStyle(fontSize: 15),
           ),
           leading: IconButton(
             padding: EdgeInsets.only(left: 10, right: 0.0),
             icon: Icon(
               Icons.arrow_back_ios,
-              size: 20,
             ),
             onPressed: () {
               Navigator.of(context).pop();
             },
           ),
-          primary: true,
           centerTitle: true,
           bottom: TabBar(
+            indicatorColor: Colors.white,
             tabs: <Widget>[
-              RichText(
-                text: TextSpan(
-                  children: [
-                    // WidgetSpan(
-                    //   child: Icon(Icons.workspaces_filled, size: 20),
-                    // ),
-                    TextSpan(
-                      text: "Lessons",
-                      // style: TextStyle(
-                      //   fontSize: 20,
-                      // ),
-                    ),
-                  ],
-                ),
+              // Tab(
+              //   text: 'Lessons',
+              // ),
+              Tab(
+                text: 'Videos',
               ),
-              RichText(
-                text: TextSpan(
-                  children: [
-                    // WidgetSpan(
-                    //   child: Icon(Icons.video_collection_sharp, size: 20),
-                    // ),
-                    TextSpan(
-                      text: " Videos",
-                      // style: TextStyle(
-                      //   fontSize: 20,
-                      // ),
-                    ),
-                  ],
-                ),
-              ),
-              RichText(
-                text: TextSpan(
-                  children: [
-                    // WidgetSpan(
-                    //   child: Icon(Icons.notes, size: 20),
-                    // ),
-                    TextSpan(
-                      text: " Notes",
-                      // style: TextStyle(
-                      //   fontSize: 20,
-                      // ),
-                    ),
-                  ],
-                ),
+              Tab(
+                text: 'Notes',
               ),
             ],
           ),
         ),
         body: TabBarView(
           children: <Widget>[
-            zoeziList(),
+            // zoeziList(),
             videoList(),
             notesList(),
           ],
@@ -177,6 +134,7 @@ class _SelectorState extends State<Selector> {
       return Container(
         width: double.infinity,
         child: ListView.builder(
+          // separatorBuilder: (context, state) => Divider(),
           reverse: false,
           itemCount: widget.videoWeek.length,
           shrinkWrap: true,
@@ -190,7 +148,7 @@ class _SelectorState extends State<Selector> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => PlayPage(user['name'],
+                      builder: (context) => NewVideoPlayer(user['name'],
                           videoWeek[index], (weekNumber + 1), videoWeek),
                     ),
                   );
@@ -361,7 +319,7 @@ class _SelectorState extends State<Selector> {
           ),
         ),
         child: ListView.builder(
-            itemCount: weekLessons.length,
+            itemCount: weekLessons != null ? weekLessons.length : 0,
             padding: const EdgeInsets.only(top: 10.0),
             itemBuilder: (context, index) {
               var zoeziId = weekLessons[index]['id'];

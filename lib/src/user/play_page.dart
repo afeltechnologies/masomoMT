@@ -220,181 +220,195 @@ class _PlayPageState extends State<PlayPage> {
               } else {
                 Navigator.of(context).pop();
               }
-              _videoPlayerController1.pause();
+              _videoPlayerController1?.pause();
               _chewieController = null;
             },
           ),
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            if (_chewieController == null || _videoPlayerController1 == null)
-              Container(
-                color: Colors.black,
-                child: AspectRatio(
-                  aspectRatio: 16.0 / 9.0,
-                  child: Center(
-                    child: CircularProgressIndicator(),
+        body: Padding(
+          padding: const EdgeInsets.only(top: 1.0),
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              if (_chewieController == null || _videoPlayerController1 == null)
+                Container(
+                  color: Colors.black,
+                  child: AspectRatio(
+                    aspectRatio: 16.0 / 9.0,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   ),
-                ),
-              )
-            else if (_videoPlayerController1.value.hasError)
-              Container(
-                color: Colors.black,
-                child: AspectRatio(
-                  aspectRatio: 16.0 / 9.0,
-                  child: Center(
-                    child: Text(_videoPlayerController1.value.errorDescription),
-                  ),
-                ),
-              )
-            else
-              _videoPlayerController1.value.initialized
-                  ? Container(
-                      color: Colors.black,
-                      child: AspectRatio(
-                        aspectRatio: _videoPlayerController1.value.aspectRatio,
-                        child: FittedBox(
-                          fit: BoxFit.fill,
-                          child: Chewie(
-                            controller: _chewieController,
-                          ),
-                        ),
-                      ),
-                    )
-                  : Container(
-                      color: Colors.black,
-                      child: AspectRatio(
-                        aspectRatio: 16.0 / 9.0,
-                        child: Center(
-                          child: CircularProgressIndicator(),
-                        ),
+                )
+              else if (_videoPlayerController1.value.hasError)
+                // Text('An error occurred ${_videoPlayerController1.value.errorDescription}')
+                Container(
+                  // color: Colors.black,
+                  child: AspectRatio(
+                    aspectRatio: 16.0 / 9.0,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.error_outline_outlined),
+                          Text('Mtandao umekosekana'),
+                        ],
                       ),
                     ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 8,
-                  child: downloading
-                      ? Column(
-                          children: [
-                            Text(
-                              'Ina save... $progress%',
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text('Subiri imalize kusave'),
-                          ],
-                        )
-                      : Text(
-                          ' UKUBWA: ' + sizeVideo,
-                          textAlign: TextAlign.center,
-                        ),
-                ),
-                Expanded(
-                  flex: 4,
-                  child: _videoPlayerController1.value.initialized &&
-                          !downloading
-                      ? FlatButton(
-                          color: videoDownloaded
-                              ? Colors.red
-                              : const Color(0xFFB3590A),
-                          padding: EdgeInsets.all(0),
-                          onPressed: () {
-                            if (!videoDownloaded) {
-                              downloadingFile(currentList['url']);
-                            }
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 5.0),
-                            child:
-                                videoDownloaded ? Text("Saved") : Text("Save"),
-                          ),
-                        )
-                      : Text('Subiri...'),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Divider(color: Colors.black),
-            Text(
-              'Video zingine za wiki hii',
-              textAlign: TextAlign.left,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Expanded(
-              child: ListView.builder(
-                reverse: false,
-                itemCount: widget.videoWeek.length,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, index) {
-                  String titleVideo = widget.videoWeek[index]['title'];
-                  String videoSize = widget.videoWeek[index]['size'];
-                  var url = widget.videoWeek[index]['url'];
-
-                  return Card(
-                    color: currentList['url'] == url
-                        ? Colors.red[100]
-                        : Colors.white,
-                    child: InkWell(
-                      onTap: () {
-                        // Change video controller and play
-                        if (currentList['url'] != url) {
-                          _initializeAndPlay(
-                              url, videoSize, titleVideo, videoWeek[index]);
-                        }
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(4),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.only(right: 8),
-                              child: Image.asset(
-                                "assets/resource/play.png",
-                                width: 70,
-                                height: 50,
-                                fit: BoxFit.fill,
+                  ),
+                )
+              else
+                _videoPlayerController1.value.initialized
+                    ? Text('success initialize')
+                    // Container(
+                    //         color: Colors.black,
+                    //         child: AspectRatio(
+                    //           aspectRatio:
+                    //               _videoPlayerController1.value.aspectRatio,
+                    //           child: FittedBox(
+                    //             fit: BoxFit.fill,
+                    //             child: Chewie(
+                    //               controller: _chewieController,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       )
+                    : Text('failed to initialize here'),
+              // Container(
+              //         color: Colors.black,
+              //         child: AspectRatio(
+              //           aspectRatio: 16.0 / 9.0,
+              //           child: Center(
+              //             child: CircularProgressIndicator(),
+              //           ),
+              //         ),
+              //       ),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    flex: 8,
+                    child: downloading
+                        ? Column(
+                            children: [
+                              Text(
+                                'Ina save... $progress%',
+                                textAlign: TextAlign.center,
                               ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text('Subiri imalize kusave'),
+                            ],
+                          )
+                        : Text(
+                            ' UKUBWA: ' + sizeVideo,
+                            textAlign: TextAlign.center,
+                          ),
+                  ),
+                  Expanded(
+                    flex: 4,
+                    child: _videoPlayerController1.value.initialized &&
+                            !downloading
+                        ? FlatButton(
+                            color: videoDownloaded
+                                ? Colors.red
+                                : const Color(0xFFB3590A),
+                            padding: EdgeInsets.all(0),
+                            onPressed: () {
+                              if (!videoDownloaded) {
+                                downloadingFile(currentList['url']);
+                              }
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 5.0),
+                              child: videoDownloaded
+                                  ? Text("Saved")
+                                  : Text("Save"),
                             ),
-                            Expanded(
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(titleVideo,
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold)),
-                                    Padding(
-                                      child: Text(videoSize,
-                                          style: TextStyle(
-                                              color: Colors.grey[500])),
-                                      padding: EdgeInsets.only(top: 3),
-                                    )
-                                  ]),
-                            ),
-                            Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Icon(Icons.play_arrow)),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                },
+                          )
+                        : Text('Subiri...'),
+                  ),
+                ],
               ),
-            ),
-          ],
+              // SizedBox(
+              //   height: 10,
+              // ),
+              Divider(color: Colors.black),
+              Text(
+                'Video nyingine za wiki hii',
+                textAlign: TextAlign.left,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              // Expanded(
+              //   child: ListView.builder(
+              //     reverse: false,
+              //     itemCount: widget.videoWeek.length,
+              //     shrinkWrap: true,
+              //     itemBuilder: (BuildContext context, index) {
+              //       String titleVideo = widget.videoWeek[index]['title'];
+              //       String videoSize = widget.videoWeek[index]['size'];
+              //       var url = widget.videoWeek[index]['url'];
+              //
+              //       return Card(
+              //         color: currentList['url'] == url
+              //             ? Colors.red[100]
+              //             : Colors.white,
+              //         child: InkWell(
+              //           onTap: () {
+              //             // Change video controller and play
+              //             if (currentList['url'] != url) {
+              //               _initializeAndPlay(
+              //                   url, videoSize, titleVideo, videoWeek[index]);
+              //             }
+              //           },
+              //           child: Container(
+              //             padding: EdgeInsets.all(4),
+              //             child: Row(
+              //               mainAxisSize: MainAxisSize.max,
+              //               crossAxisAlignment: CrossAxisAlignment.center,
+              //               children: <Widget>[
+              //                 Padding(
+              //                   padding: EdgeInsets.only(right: 8),
+              //                   child: Image.asset(
+              //                     "assets/resource/play.png",
+              //                     width: 70,
+              //                     height: 50,
+              //                     fit: BoxFit.fill,
+              //                   ),
+              //                 ),
+              //                 Expanded(
+              //                   child: Column(
+              //                       mainAxisSize: MainAxisSize.min,
+              //                       mainAxisAlignment: MainAxisAlignment.center,
+              //                       crossAxisAlignment: CrossAxisAlignment.start,
+              //                       children: <Widget>[
+              //                         Text(titleVideo,
+              //                             style: TextStyle(
+              //                                 fontSize: 12,
+              //                                 fontWeight: FontWeight.bold)),
+              //                         Padding(
+              //                           child: Text(videoSize,
+              //                               style: TextStyle(
+              //                                   color: Colors.grey[500])),
+              //                           padding: EdgeInsets.only(top: 3),
+              //                         )
+              //                       ]),
+              //                 ),
+              //                 Padding(
+              //                     padding: EdgeInsets.all(8.0),
+              //                     child: Icon(Icons.play_arrow)),
+              //               ],
+              //             ),
+              //           ),
+              //         ),
+              //       );
+              //     },
+              //   ),
+              // ),
+            ],
+          ),
         ),
       ),
       debugShowCheckedModeBanner: false,
