@@ -20,7 +20,7 @@ class NotificationManager {
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
       '1',
       'Reminder',
-      'Unakumbushwa kuingia kweyne ili kujisomea zaidi',
+      'Unakumbushwa kuingia kwenye masomoMT app ili kujisomea zaidi',
       importance: Importance.Max,
       priority: Priority.High,
     );

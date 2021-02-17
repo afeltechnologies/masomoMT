@@ -162,112 +162,24 @@ class _TranslatorState extends State<Translator> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        margin: EdgeInsets.all(5.0),
-        height: double.maxFinite,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Text(
-              'Tafsiri',
-              style: TextStyle(fontSize: 25, color: Colors.black),
-            ),
-            Text(
-              'Andika neno au sentensi kisha bonyeza Tafsiri au nisomee kusikiliza sauti.',
-              style: TextStyle(fontSize: 12, color: Colors.black),
-            ),
-            SizedBox(height: 10),
+    return ListView(
+      physics: BouncingScrollPhysics(),
+      children: <Widget>[
+        Text(
+          'Tafsiri',
+          style: TextStyle(fontSize: 25, color: Colors.black),
+        ),
+        Text(
+          'Andika neno au sentensi kisha bonyeza Tafsiri au nisomee kusikiliza sauti.',
+          style: TextStyle(fontSize: 12, color: Colors.black),
+        ),
+        SizedBox(height: 10),
+        Row(
+          children: [
+            Text('$text1'),
+            Spacer(),
             Row(
               children: [
-                Text('$text1'),
-                Spacer(),
-                Row(
-                  children: [
-                    RaisedButton(
-                      color: const Color(0xFFB3590A),
-                      child: Text(
-                        'Nisomee',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      onPressed: () {
-                        if (_input1.text != null) {
-                          if (text1 == 'Kiswahili') {
-                            _speak(_input1.text, 'sw');
-                            sendTranslate('nisomee', _input1.text);
-                          } else {
-                            _speak(_input1.text, 'en-US');
-                            sendTranslate('nisomee', _input1.text);
-                          }
-                        }
-                      },
-                    ),
-                    // new IconButton(
-                    //   icon: new Icon(Icons.multitrack_audio),
-                    //   tooltip: text1 == 'Kiswahili' ? 'Soma' : 'Read',
-                    //   onPressed: () {
-                    //     if (_input1.text != null) {
-                    //       if (text1 == 'Kiswahili') {
-                    //         _speak(_input1.text, 'sw');
-                    //       } else {
-                    //         _speak(_input1.text, 'en-US');
-                    //       }
-                    //     }
-                    //   },
-                    // ),
-                  ],
-                ),
-              ],
-            ),
-            Card(
-              color: Colors.white,
-              child: TextField(
-                controller: _input1,
-                minLines: 4,
-                maxLines: 8,
-                decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Colors.greenAccent, width: 2.0),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: const Color(0xFFB3590A), width: 2.0),
-                    ),
-                    hintText: "$text1"),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(3.0),
-              child: Row(
-                children: <Widget>[
-                  FlatButton.icon(
-                    onPressed: () => changeLanguage(),
-                    icon: Icon(Icons.switch_right),
-                    label: Text('$label'),
-                    color: Colors.green,
-                    textColor: Colors.white,
-                  ),
-                  Spacer(),
-                  FlatButton(
-                    child: Text('Tafsiri'),
-                    onPressed: () => translating(),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    color: Colors.green,
-                    textColor: Colors.white,
-                  ),
-                ],
-              ),
-            ),
-            Row(
-              children: [
-                Text('$text2'),
-                Spacer(),
                 RaisedButton(
                   color: const Color(0xFFB3590A),
                   child: Text(
@@ -277,48 +189,125 @@ class _TranslatorState extends State<Translator> {
                     ),
                   ),
                   onPressed: () {
-                    if (_input2.text != null) {
-                      if (text2 == 'Kiswahili') {
-                        _speak(_input2.text, 'sw');
-                        sendTranslate('nisomee', _input2.text);
+                    if (_input1.text != null) {
+                      if (text1 == 'Kiswahili') {
+                        _speak(_input1.text, 'sw');
+                        sendTranslate('nisomee', _input1.text);
                       } else {
-                        _speak(_input2.text, 'en-US');
-                        sendTranslate('nisomee', _input2.text);
+                        _speak(_input1.text, 'en-US');
+                        sendTranslate('nisomee', _input1.text);
                       }
                     }
                   },
                 ),
+                // new IconButton(
+                //   icon: new Icon(Icons.multitrack_audio),
+                //   tooltip: text1 == 'Kiswahili' ? 'Soma' : 'Read',
+                //   onPressed: () {
+                //     if (_input1.text != null) {
+                //       if (text1 == 'Kiswahili') {
+                //         _speak(_input1.text, 'sw');
+                //       } else {
+                //         _speak(_input1.text, 'en-US');
+                //       }
+                //     }
+                //   },
+                // ),
               ],
-            ),
-            isLoading
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : Card(
-                    color: Colors.white,
-                    child: TextField(
-                      enabled: true,
-                      controller: _input2,
-                      minLines: 4,
-                      maxLines: 8,
-                      decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.greenAccent, width: 2.0),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: const Color(0xFFB3590A), width: 2.0),
-                          ),
-                          hintText: "$text2"),
-                    ),
-                  ),
-            Spacer(
-              flex: 2,
             ),
           ],
         ),
-      ),
+        Card(
+          color: Colors.white,
+          child: TextField(
+            controller: _input1,
+            minLines: 4,
+            maxLines: 8,
+            decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.greenAccent, width: 2.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: const Color(0xFFB3590A), width: 2.0),
+                ),
+                hintText: "$text1"),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(3.0),
+          child: Row(
+            children: <Widget>[
+              FlatButton.icon(
+                onPressed: () => changeLanguage(),
+                icon: Icon(Icons.switch_right),
+                label: Text('$label'),
+                color: Colors.green,
+                textColor: Colors.white,
+              ),
+              Spacer(),
+              FlatButton(
+                child: Text('Tafsiri'),
+                onPressed: () => translating(),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                color: Colors.green,
+                textColor: Colors.white,
+              ),
+            ],
+          ),
+        ),
+        Row(
+          children: [
+            Text('$text2'),
+            Spacer(),
+            RaisedButton(
+              color: const Color(0xFFB3590A),
+              child: Text(
+                'Nisomee',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: () {
+                if (_input2.text != null) {
+                  if (text2 == 'Kiswahili') {
+                    _speak(_input2.text, 'sw');
+                    sendTranslate('nisomee', _input2.text);
+                  } else {
+                    _speak(_input2.text, 'en-US');
+                    sendTranslate('nisomee', _input2.text);
+                  }
+                }
+              },
+            ),
+          ],
+        ),
+        isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Card(
+                color: Colors.white,
+                child: TextField(
+                  enabled: true,
+                  controller: _input2,
+                  minLines: 4,
+                  maxLines: 8,
+                  decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Colors.greenAccent, width: 2.0),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: const Color(0xFFB3590A), width: 2.0),
+                      ),
+                      hintText: "$text2"),
+                ),
+              ),
+      ],
     );
   }
 

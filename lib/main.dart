@@ -1,19 +1,22 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:splashscreen/splashscreen.dart';
+// import 'package:splashscreen/splashscreen.dart';
 import 'src/signup.dart';
 import 'src/user/homepage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/services.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await FlutterDownloader.initialize(debug: true);
+
   runApp(
     new MaterialApp(
-      home: new MyApp(),
-      debugShowCheckedModeBanner: false,
+      home: MyApp(),
     ),
   );
 }
@@ -38,10 +41,7 @@ class _MyAppState extends State<MyApp> {
     //     photoSize: 100.0,
     //     loaderColor: Colors.white);
     // );
-    return new MaterialApp(
-      home: new LoginPage(),
-      debugShowCheckedModeBanner: false,
-    );
+    return LoginPage();
   }
 }
 
@@ -92,12 +92,6 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  @override
-  void initState() {
-    read();
-    super.initState();
-  }
-
   final TextEditingController _phoneController = new TextEditingController();
 
   bool validate(String _phone) {
@@ -119,6 +113,7 @@ class _LoginPageState extends State<LoginPage> {
         body:
             jsonEncode(<String, String>{'phone': _phone, 'password': 'masomo'}),
       );
+
       return response;
     } catch (e) {
       return null;
@@ -328,51 +323,49 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
+  void initState() {
+    read();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final _globalKey = GlobalKey<_LoginPageState>();
     final height = MediaQuery.of(context).size.height;
-    // logout();
-    if (isLogedIn) {
-      return success();
-    } else {
-      return Scaffold(
-          body: Container(
-        color: const Color(0xFFB3590A),
-        height: height,
-        width: double.infinity,
-        child: isLoading
-            ? SplashScreen(
-                image: new Image.asset('assets/images/masomo.png'),
-                backgroundColor: const Color(0xFFB3590A),
-                styleTextUnderTheLoader: new TextStyle(),
-                loadingText: Text('Masomo Mtandaoni'),
-                photoSize: 100.0,
-                loaderColor: Colors.white,
-                seconds: 15,
-                navigateAfterSeconds: new LoginPage(),
-              )
-            : Stack(
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          SizedBox(height: height * .2),
-                          _title(),
-                          SizedBox(height: 50),
-                          _emailPasswordWidget(),
-                          SizedBox(height: 4),
-                          _submitButton(),
-                        ],
-                      ),
+    return Scaffold(
+      body: isLogedIn
+          ? success()
+          : Container(
+              color: const Color(0xFFB3590A),
+              height: height,
+              width: double.infinity,
+              child: isLoading
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : Stack(
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                SizedBox(height: height * .2),
+                                _title(),
+                                SizedBox(height: 50),
+                                _emailPasswordWidget(),
+                                SizedBox(height: 4),
+                                _submitButton(),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-      ));
-    }
+            ),
+    );
   }
 
   _loginSuccess(user) async {

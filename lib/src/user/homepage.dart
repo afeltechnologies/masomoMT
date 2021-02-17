@@ -526,7 +526,9 @@ class _HomePageState extends State<HomePage> {
             length: 4,
             child: Scaffold(
               appBar: AppBar(
-                toolbarHeight: 70,
+                title: Text('Masomo'),
+                centerTitle: true,
+                // toolbarHeight: 70,
                 backgroundColor: const Color(0xFFB3590A),
                 actions: <Widget>[
                   PopupMenuButton<String>(
@@ -542,36 +544,25 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                 ],
-                leading: new Container(),
                 bottom: TabBar(
+                  indicatorColor: Colors.white,
                   tabs: <Widget>[
-                    Icon(
-                      Icons.home,
-                      size: 30,
+                    Tab(
+                      icon: Icon(Icons.home_outlined),
                     ),
-                    Row(
-                      children: [
-                        // Center(
-                        //   child: Icon(
-                        //     Icons.switch_left_sharp,
-                        //     size: 30,
-                        //   ),
-                        // ),
-                        Text('Tafsiri'),
-                      ],
+                    Tab(
+                      text: 'Tafsiri',
                     ),
-                    Row(
-                      children: [
-                        Text('Chat'),
-                      ],
+                    Tab(
+                      text: 'Chat',
                     ),
-                    Icon(
-                      Icons.notification_important,
-                      size: 30,
+                    Tab(
+                      icon: Icon(Icons.notification_important_outlined),
                     ),
                   ],
                 ),
               ),
+              // endDrawer: Drawer(),
               body: TabBarView(
                 controller: tabController,
                 children: <Widget>[
@@ -579,8 +570,6 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.white,
                     width: double.infinity,
                     child: Column(
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                      // crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Column(
                           children: [
@@ -763,34 +752,35 @@ class _HomePageState extends State<HomePage> {
                                     flex: 2,
                                   ),
                                   Expanded(
-                                      flex: 5,
-                                      child: RaisedButton(
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  SavedVideos(user),
-                                            ),
-                                          );
-                                        },
-                                        child: RichText(
-                                          text: TextSpan(
-                                            children: [
-                                              WidgetSpan(
-                                                child: Icon(
-                                                    Icons.video_collection,
-                                                    size: 14),
-                                              ),
-                                              TextSpan(
-                                                text: " Saved videos",
-                                              ),
-                                            ],
+                                    flex: 5,
+                                    child: RaisedButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                SavedVideos(user),
                                           ),
+                                        );
+                                      },
+                                      child: RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            WidgetSpan(
+                                              child: Icon(
+                                                  Icons.video_collection,
+                                                  size: 14),
+                                            ),
+                                            TextSpan(
+                                              text: " Saved videos",
+                                            ),
+                                          ],
                                         ),
-                                        color: Colors.green,
-                                        textColor: Colors.white,
-                                      )),
+                                      ),
+                                      color: Colors.green,
+                                      textColor: Colors.white,
+                                    ),
+                                  ),
                                 ],
                               ),
                             )
@@ -853,263 +843,245 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget getTextWidgets(user) {
-    if (user['weeks'].length == 0) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: 150,
-          ),
-          Center(
-            child: CircularProgressIndicator(
-              backgroundColor: Colors.cyanAccent,
-              valueColor: new AlwaysStoppedAnimation<Color>(Colors.red),
-            ),
-          ),
-          Text('Inapakua taarifa'),
-        ],
-      );
-    } else {
-      var weekList = isUserUpdated ? userUpdated['weeks'] : user['weeks'];
+    var weekList = isUserUpdated ? userUpdated['weeks'] : user['weeks'];
 
-      return new Expanded(
-        child: Container(
-          width: double.infinity,
-          child: isUserUpdated
-              ? ListView.builder(
-                  reverse: false,
-                  itemCount: isUserUpdated
-                      ? userUpdated['weeks'].length
-                      : user['weeks'].length,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, index) {
-                    int weekNumber = index + 1;
-                    int weekPaid = weekList[index]['paid'];
+    // print(weekList);
+    return new Expanded(
+      child: Container(
+        width: double.infinity,
+        child: isUserUpdated
+            ? ListView.builder(
+                reverse: false,
+                itemCount: isUserUpdated
+                    ? userUpdated['weeks'].length
+                    : user['weeks'].length,
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, index) {
+                  int weekNumber = index + 1;
+                  int weekPaid = weekList[index]['paid'];
 
-                    if (weekPaid == 0) {
-                      return Container(
-                        width: double.infinity,
-                        child: InkWell(
-                          child: Card(
-                            elevation: 2.0,
-                            color: const Color(0xFFAD7D52),
-                            child: Padding(
-                              padding: const EdgeInsets.all(0.5),
-                              child: Container(
-                                height: 60,
-                                child: Column(
-                                  children: <Widget>[
-                                    ListTile(
-                                      leading: Icon(
-                                        Icons.lock,
-                                        size: 25,
-                                        color: Colors.white60,
-                                      ),
-                                      title: new Text(
-                                        'Week $weekNumber',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.white,
-                                        ),
-                                      ),
+                  if (weekPaid == 0) {
+                    return Container(
+                      width: double.infinity,
+                      child: InkWell(
+                        child: Card(
+                          elevation: 2.0,
+                          color: const Color(0xFFAD7D52),
+                          child: Padding(
+                            padding: const EdgeInsets.all(0.5),
+                            child: Container(
+                              height: 60,
+                              child: Column(
+                                children: <Widget>[
+                                  ListTile(
+                                    leading: Icon(
+                                      Icons.lock,
+                                      size: 25,
+                                      color: Colors.white60,
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          onTap: () {
-                            return showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  content: Text(
-                                      'Wiki hii haijalipiwa, fanya malipo sasa uendelee kujisomea'),
-                                  actions: <Widget>[
-                                    FlatButton(
-                                      child: Text('Ok'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      );
-                    } else {
-                      return Container(
-                        width: double.infinity,
-                        child: InkWell(
-                          child: Card(
-                            shadowColor: Colors.black,
-                            borderOnForeground: true,
-                            color: const Color(0xFFB3590A),
-                            child: Padding(
-                              padding: const EdgeInsets.all(0.5),
-                              child: Container(
-                                height: 60,
-                                child: Column(
-                                  // mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    ListTile(
-                                      leading: Icon(
-                                        Icons.lock_open,
-                                        size: 25,
+                                    title: new Text(
+                                      'Week $weekNumber',
+                                      style: TextStyle(
+                                        fontSize: 18,
                                         color: Colors.white,
                                       ),
-                                      title: new Text(
-                                        'Week $weekNumber',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.white,
-                                        ),
-                                      ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                          onTap: () {
-                            var videoWeeks = isUserUpdated
-                                ? userUpdated['videos'][index]
-                                : user['videos'][index];
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Selector(
-                                  userUpdated,
-                                  videoWeeks['videoWeeks'],
-                                  index,
-                                ),
-                              ),
-                            );
-                          },
                         ),
-                      );
-                    }
-                  },
-                )
-              : ListView.builder(
-                  reverse: false,
-                  itemCount: user['weeks'].length,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, index) {
-                    int weekNumber = index + 1;
-                    int weekPaid = weekList[index]['paid'];
-
-                    if (weekPaid == 0) {
-                      return Container(
-                        width: double.infinity,
-                        child: InkWell(
-                          child: Card(
-                            elevation: 2.0,
-                            color: const Color(0xFFAD7D52),
-                            child: Padding(
-                              padding: const EdgeInsets.all(0.5),
-                              child: Container(
-                                height: 60,
-                                child: Column(
-                                  children: <Widget>[
-                                    ListTile(
-                                      leading: Icon(
-                                        Icons.lock,
-                                        size: 25,
-                                        color: Colors.white60,
-                                      ),
-                                      title: new Text(
-                                        'Week $weekNumber',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.white,
-                                        ),
-                                      ),
+                        onTap: () {
+                          return showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                content: Text(
+                                    'Wiki hii haijalipiwa, fanya malipo sasa uendelee kujisomea'),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    child: Text('Ok'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    );
+                  } else {
+                    return Container(
+                      width: double.infinity,
+                      child: InkWell(
+                        child: Card(
+                          shadowColor: Colors.black,
+                          borderOnForeground: true,
+                          color: const Color(0xFFB3590A),
+                          child: Padding(
+                            padding: const EdgeInsets.all(0.5),
+                            child: Container(
+                              height: 60,
+                              child: Column(
+                                // mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  ListTile(
+                                    leading: Icon(
+                                      Icons.lock_open,
+                                      size: 25,
+                                      color: Colors.white,
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          onTap: () {
-                            return showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  content: Text(
-                                      'Wiki hii haijalipiwa, fanya malipo sasa uendelee kujisomea'),
-                                  actions: <Widget>[
-                                    FlatButton(
-                                      child: Text('Ok'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      );
-                    } else {
-                      return Container(
-                        width: double.infinity,
-                        child: InkWell(
-                          child: Card(
-                            shadowColor: Colors.black,
-                            borderOnForeground: true,
-                            color: const Color(0xFFB3590A),
-                            child: Padding(
-                              padding: const EdgeInsets.all(0.5),
-                              child: Container(
-                                height: 60,
-                                child: Column(
-                                  // mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    ListTile(
-                                      leading: Icon(
-                                        Icons.lock_open,
-                                        size: 25,
+                                    title: new Text(
+                                      'Week $weekNumber',
+                                      style: TextStyle(
+                                        fontSize: 18,
                                         color: Colors.white,
                                       ),
-                                      title: new Text(
-                                        'Week $weekNumber',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.white,
-                                        ),
-                                      ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                          onTap: () {
-                            var videoWeeks = user['videos'][index];
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Selector(
-                                  user,
-                                  videoWeeks['videoWeeks'],
-                                  index,
-                                ),
-                              ),
-                            );
-                          },
                         ),
-                      );
-                    }
-                  },
-                ),
-        ),
-      );
-    }
+                        onTap: () {
+                          var videoWeeks = isUserUpdated
+                              ? userUpdated['videos'][index]
+                              : user['videos'][index];
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Selector(
+                                userUpdated,
+                                videoWeeks['videoWeeks'],
+                                index,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  }
+                },
+              )
+            : ListView.builder(
+                reverse: false,
+                itemCount: user['weeks'].length,
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, index) {
+                  int weekNumber = index + 1;
+                  int weekPaid = weekList[index]['paid'];
+
+                  if (weekPaid == 0) {
+                    return Container(
+                      width: double.infinity,
+                      child: InkWell(
+                        child: Card(
+                          elevation: 2.0,
+                          color: const Color(0xFFAD7D52),
+                          child: Padding(
+                            padding: const EdgeInsets.all(0.5),
+                            child: Container(
+                              height: 60,
+                              child: Column(
+                                children: <Widget>[
+                                  ListTile(
+                                    leading: Icon(
+                                      Icons.lock,
+                                      size: 25,
+                                      color: Colors.white60,
+                                    ),
+                                    title: new Text(
+                                      'Week $weekNumber',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                          return showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                content: Text(
+                                    'Wiki hii haijalipiwa, fanya malipo sasa uendelee kujisomea'),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    child: Text('Ok'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    );
+                  } else {
+                    return Container(
+                      width: double.infinity,
+                      child: InkWell(
+                        child: Card(
+                          shadowColor: Colors.black,
+                          borderOnForeground: true,
+                          color: const Color(0xFFB3590A),
+                          child: Padding(
+                            padding: const EdgeInsets.all(0.5),
+                            child: Container(
+                              height: 60,
+                              child: Column(
+                                // mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  ListTile(
+                                    leading: Icon(
+                                      Icons.lock_open,
+                                      size: 25,
+                                      color: Colors.white,
+                                    ),
+                                    title: new Text(
+                                      'Week $weekNumber',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                          var videoWeeks = user['videos'][index];
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Selector(
+                                user,
+                                videoWeeks['videoWeeks'],
+                                index,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  }
+                },
+              ),
+      ),
+    );
   }
 
   Widget tafsiri(user) {

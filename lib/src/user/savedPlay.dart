@@ -370,3 +370,259 @@ class _ChewieListItemState extends State<ChewieListItem> {
     }
   }
 }
+
+// import 'dart:async';
+// import 'dart:io';
+// import 'dart:isolate';
+// import 'dart:ui';
+//
+// import 'package:flutter/material.dart';
+// import 'package:ext_video_player/ext_video_player.dart';
+// import 'package:path_provider/path_provider.dart';
+//
+// import 'package:flutter_downloader/flutter_downloader.dart';
+//
+// class ChewieListItem extends StatefulWidget {
+//   final user;
+//   final list;
+//   final videoWeek;
+//   ChewieListItem(this.list, this.videoWeek, this.user);
+//
+//   @override
+//   _ChewieListItemState createState() => _ChewieListItemState();
+// }
+//
+// class _ChewieListItemState extends State<ChewieListItem> {
+//   VideoPlayerController _controller;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         backgroundColor: const Color(0xFFB3590A),
+//         title: Text('Saved Videos'),
+//         leading: IconButton(
+//           icon: Icon(Icons.arrow_back_ios),
+//           onPressed: () {
+//             _controller = null;
+//             Navigator.of(context).pop();
+//           },
+//         ),
+//       ),
+//       body: _YoutubeVideo(
+//         widget.list,
+//         widget.videoWeek,
+//         widget.user,
+//       ),
+//     );
+//   }
+// }
+//
+// class _YoutubeVideo extends StatefulWidget {
+//   final user;
+//   final list;
+//   final videoWeek;
+//   _YoutubeVideo(this.list, this.videoWeek, this.user);
+//
+//   @override
+//   _YoutubeVideoState createState() => _YoutubeVideoState();
+// }
+//
+// class _YoutubeVideoState extends State<_YoutubeVideo> {
+//   VideoPlayerController _controller;
+//   var currentList;
+//   bool isDownloading = false;
+//   bool notSaved = true;
+//   File downloadedFile;
+//
+//   void _changeVideo(dataVideo) async {
+//     if (_controller != null) {
+//       if (_controller.value.isPlaying) {
+//         _controller.pause();
+//       }
+//     }
+//
+//     _controller = VideoPlayerController.file(dataVideo['url']);
+//     setState(() {
+//       notSaved = false;
+//     });
+//
+//     _controller.addListener(() {
+//       setState(() {
+//         currentList = dataVideo;
+//       });
+//     });
+//     _controller.setLooping(false);
+//     _controller.initialize().then((value) => null);
+//   }
+//
+//   ReceivePort _port = ReceivePort();
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     _controller = VideoPlayerController.network(
+//       '${widget.list['url']}',
+//     );
+//     _controller.addListener(() {
+//       setState(() {
+//         currentList = widget.list;
+//       });
+//     });
+//     _controller.setLooping(true);
+//     _controller.initialize();
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: [
+//         AspectRatio(
+//           aspectRatio: 16 / 9,
+//           child: Stack(
+//             alignment: Alignment.bottomCenter,
+//             children: <Widget>[
+//               VideoPlayer(_controller),
+//               // ClosedCaption(text: '${_controller.value.caption.text}'),
+//               _PlayPauseOverlay(controller: _controller),
+//               VideoProgressIndicator(
+//                 _controller,
+//                 allowScrubbing: true,
+//               ),
+//             ],
+//           ),
+//         ),
+//         Padding(
+//           padding: const EdgeInsets.symmetric(horizontal: 4.0),
+//           child: Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: <Widget>[
+//               Text(
+//                 'UKUBWA: ',
+//                 textAlign: TextAlign.center,
+//               ),
+//               notSaved
+//                   ? RaisedButton(
+//                       color: Color(0xFFB3590A),
+//                       onPressed: () {
+//                         // if (!isDownloading && notSaved) {
+//                         //   saveVideo(currentList);
+//                         // }
+//                       },
+//                       child: Padding(
+//                         padding: EdgeInsets.symmetric(vertical: 5.0),
+//                         child: isDownloading ? Text("Inasave") : Text('Save'),
+//                       ),
+//                     )
+//                   : OutlineButton(
+//                       borderSide:
+//                           BorderSide(color: Color(0xFFB3590A), width: 2.0),
+//                       splashColor: const Color(0xFFB3590A),
+//                       onPressed: () {},
+//                       child: Padding(
+//                         padding: EdgeInsets.symmetric(vertical: 5.0),
+//                         child: Text('Imehifadhiwa'),
+//                       ),
+//                     )
+//             ],
+//           ),
+//         ),
+//         Padding(
+//           padding: const EdgeInsets.symmetric(horizontal: 4.0),
+//           child: Align(
+//             alignment: Alignment.centerLeft,
+//             child: Text(
+//               'title',
+//               style: Theme.of(context).textTheme.subtitle2,
+//             ),
+//           ),
+//         ),
+//         Padding(
+//           padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 4.0),
+//           child: Divider(
+//             height: 2,
+//             color: Colors.grey,
+//           ),
+//         ),
+//         Expanded(
+//           child: ListView.builder(
+//             reverse: false,
+//             itemCount: widget.videoWeek.length,
+//             shrinkWrap: true,
+//             itemBuilder: (BuildContext context, index) {
+//               String titleVideo = widget.videoWeek[index]['title'];
+//               String videoSize = widget.videoWeek[index]['size'];
+//               var url = widget.videoWeek[index]['url'];
+//
+//               return Card(
+//                 color:
+//                     currentList['url'] == url ? Colors.red[100] : Colors.white,
+//                 child: ListTile(
+//                   leading: Image.asset(
+//                     "assets/resource/play.png",
+//                     width: 50,
+//                     height: 40,
+//                     fit: BoxFit.fill,
+//                   ),
+//                   title: Text(titleVideo),
+//                   subtitle: Text(videoSize),
+//                   trailing: Icon(Icons.play_arrow_outlined),
+//                   dense: true,
+//                   contentPadding: EdgeInsets.symmetric(horizontal: 10),
+//                   onTap: () {
+//                     // Change video controller and play
+//                     if (currentList['url'] != url) {
+//                       _changeVideo(widget.videoWeek[index]);
+//                     }
+//                   },
+//                 ),
+//               );
+//             },
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
+//
+// class _PlayPauseOverlay extends StatelessWidget {
+//   const _PlayPauseOverlay({Key key, this.controller}) : super(key: key);
+//
+//   final VideoPlayerController controller;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Stack(
+//       children: <Widget>[
+//         AnimatedSwitcher(
+//           duration: Duration(milliseconds: 50),
+//           reverseDuration: Duration(milliseconds: 200),
+//           child: controller.value.isPlaying
+//               ? controller.value.isBuffering
+//                   ? Center(
+//                       child: CircularProgressIndicator(
+//                         valueColor: AlwaysStoppedAnimation<Color>(
+//                             const Color(0xFFB3590A)),
+//                       ),
+//                     )
+//                   : SizedBox.shrink()
+//               : Container(
+//                   color: Colors.grey.withOpacity(0.6),
+//                   child: Center(
+//                     child: Icon(
+//                       Icons.play_circle_outline,
+//                       color: Colors.white,
+//                       size: 100.0,
+//                     ),
+//                   ),
+//                 ),
+//         ),
+//         GestureDetector(
+//           onTap: () {
+//             controller.value.isPlaying ? controller.pause() : controller.play();
+//           },
+//         ),
+//       ],
+//     );
+//   }
+// }
