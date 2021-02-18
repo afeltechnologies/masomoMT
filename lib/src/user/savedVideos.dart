@@ -194,7 +194,7 @@ class _PlaySavedVideos extends State<SavedVideos> {
                                       size: 35,
                                       color: Colors.green,
                                     ),
-                                    tooltip: 'Analia Video',
+                                    tooltip: 'Angalia Video',
                                     onPressed: () {
                                       Navigator.push(
                                         context,
@@ -277,38 +277,5 @@ class _PlaySavedVideos extends State<SavedVideos> {
       )
     ]);
     print(downloadMessage);
-  }
-}
-
-class DownloadFile {
-  DownloadFile.fileDownload(url);
-
-  fileDownload(url) async {
-    var downloadMessage = [];
-
-    Directory appDocDirectory = await getApplicationSupportDirectory();
-    var path = appDocDirectory.path + '/.saved/';
-
-    var filename = url.split("/");
-    String name = filename[filename.length - 1];
-
-    String fullPath = path + name;
-    Dio dio = new Dio();
-    Future.wait([
-      dio.download(
-        url,
-        fullPath,
-        onReceiveProgress: (rcv, total) {
-          var progress = rcv / total * 100;
-          downloadMessage[0] = [
-            {
-              "text": "Downloading... ${progress.floor()} %",
-              "proress": progress,
-            }
-          ];
-        },
-        deleteOnError: true,
-      )
-    ]);
   }
 }
