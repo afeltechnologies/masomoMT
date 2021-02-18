@@ -1,7 +1,7 @@
 1<?xml version="1.0" encoding="utf-8"?>
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
 3    package="com.example.masomoMT"
-4    android:versionCode="8"
+4    android:versionCode="9"
 5    android:versionName="1.0.2" >
 6
 7    <uses-sdk
@@ -319,39 +319,39 @@
 182            android:exported="false" /> <!-- The activities will be merged into the manifest of the hosting app. -->
 182-->[androidx.room:room-runtime:2.2.5] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\77b8e4586ec99cf6b36200ddb16a1946\room-runtime-2.2.5\AndroidManifest.xml:28:13-37
 183        <activity
-183-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\fcb56a65a73e99f921ddd31ca0d2f3b6\jetified-core-1.8.2\AndroidManifest.xml:12:5-271
+183-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\babedfdd0e7256016be06bf17557d575\jetified-core-1.8.2\AndroidManifest.xml:12:5-271
 184            android:name="com.google.android.play.core.missingsplits.PlayCoreMissingSplitsActivity"
-184-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\fcb56a65a73e99f921ddd31ca0d2f3b6\jetified-core-1.8.2\AndroidManifest.xml:12:15-102
+184-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\babedfdd0e7256016be06bf17557d575\jetified-core-1.8.2\AndroidManifest.xml:12:15-102
 185            android:enabled="false"
-185-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\fcb56a65a73e99f921ddd31ca0d2f3b6\jetified-core-1.8.2\AndroidManifest.xml:12:103-126
+185-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\babedfdd0e7256016be06bf17557d575\jetified-core-1.8.2\AndroidManifest.xml:12:103-126
 186            android:exported="false"
-186-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\fcb56a65a73e99f921ddd31ca0d2f3b6\jetified-core-1.8.2\AndroidManifest.xml:12:127-151
+186-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\babedfdd0e7256016be06bf17557d575\jetified-core-1.8.2\AndroidManifest.xml:12:127-151
 187            android:launchMode="singleInstance"
-187-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\fcb56a65a73e99f921ddd31ca0d2f3b6\jetified-core-1.8.2\AndroidManifest.xml:12:204-239
+187-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\babedfdd0e7256016be06bf17557d575\jetified-core-1.8.2\AndroidManifest.xml:12:204-239
 188            android:process=":playcore_missing_splits_activity"
-188-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\fcb56a65a73e99f921ddd31ca0d2f3b6\jetified-core-1.8.2\AndroidManifest.xml:12:152-203
+188-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\babedfdd0e7256016be06bf17557d575\jetified-core-1.8.2\AndroidManifest.xml:12:152-203
 189            android:stateNotNeeded="true" />
-189-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\fcb56a65a73e99f921ddd31ca0d2f3b6\jetified-core-1.8.2\AndroidManifest.xml:12:240-269
+189-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\babedfdd0e7256016be06bf17557d575\jetified-core-1.8.2\AndroidManifest.xml:12:240-269
 190        <activity
-190-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\fcb56a65a73e99f921ddd31ca0d2f3b6\jetified-core-1.8.2\AndroidManifest.xml:13:5-226
+190-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\babedfdd0e7256016be06bf17557d575\jetified-core-1.8.2\AndroidManifest.xml:13:5-226
 191            android:name="com.google.android.play.core.common.PlayCoreDialogWrapperActivity"
-191-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\fcb56a65a73e99f921ddd31ca0d2f3b6\jetified-core-1.8.2\AndroidManifest.xml:13:15-95
+191-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\babedfdd0e7256016be06bf17557d575\jetified-core-1.8.2\AndroidManifest.xml:13:15-95
 192            android:enabled="false"
-192-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\fcb56a65a73e99f921ddd31ca0d2f3b6\jetified-core-1.8.2\AndroidManifest.xml:13:96-119
+192-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\babedfdd0e7256016be06bf17557d575\jetified-core-1.8.2\AndroidManifest.xml:13:96-119
 193            android:exported="false"
-193-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\fcb56a65a73e99f921ddd31ca0d2f3b6\jetified-core-1.8.2\AndroidManifest.xml:13:120-144
+193-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\babedfdd0e7256016be06bf17557d575\jetified-core-1.8.2\AndroidManifest.xml:13:120-144
 194            android:stateNotNeeded="true"
-194-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\fcb56a65a73e99f921ddd31ca0d2f3b6\jetified-core-1.8.2\AndroidManifest.xml:13:145-174
+194-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\babedfdd0e7256016be06bf17557d575\jetified-core-1.8.2\AndroidManifest.xml:13:145-174
 195            android:theme="@style/Theme.PlayCore.Transparent" /> <!-- The service will be merged into the manifest of the hosting app. -->
-195-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\fcb56a65a73e99f921ddd31ca0d2f3b6\jetified-core-1.8.2\AndroidManifest.xml:13:175-224
+195-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\babedfdd0e7256016be06bf17557d575\jetified-core-1.8.2\AndroidManifest.xml:13:175-224
 196        <service
-196-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\fcb56a65a73e99f921ddd31ca0d2f3b6\jetified-core-1.8.2\AndroidManifest.xml:16:5-145
+196-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\babedfdd0e7256016be06bf17557d575\jetified-core-1.8.2\AndroidManifest.xml:16:5-145
 197            android:name="com.google.android.play.core.assetpacks.AssetPackExtractionService"
-197-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\fcb56a65a73e99f921ddd31ca0d2f3b6\jetified-core-1.8.2\AndroidManifest.xml:16:14-95
+197-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\babedfdd0e7256016be06bf17557d575\jetified-core-1.8.2\AndroidManifest.xml:16:14-95
 198            android:enabled="false"
-198-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\fcb56a65a73e99f921ddd31ca0d2f3b6\jetified-core-1.8.2\AndroidManifest.xml:16:96-119
+198-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\babedfdd0e7256016be06bf17557d575\jetified-core-1.8.2\AndroidManifest.xml:16:96-119
 199            android:exported="true" />
-199-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\fcb56a65a73e99f921ddd31ca0d2f3b6\jetified-core-1.8.2\AndroidManifest.xml:16:120-143
+199-->[com.google.android.play:core:1.8.2] C:\Users\Lyatuu\.gradle\caches\transforms-2\files-2.1\babedfdd0e7256016be06bf17557d575\jetified-core-1.8.2\AndroidManifest.xml:16:120-143
 200    </application>
 201
 202</manifest>
